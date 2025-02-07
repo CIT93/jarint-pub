@@ -1,5 +1,6 @@
 const CFPDATA = [];
 function calculatePoints(numberInHousehold) {
+    console.log("inside the block scope");
 
     let houseHoldPoints = 0;
 
@@ -45,7 +46,6 @@ function determineHouseSizePts(houseSize) {
     return houseSizePoints; // Returning the calculated points
 }
 
-console.log("global scope");
 
 function start(houseHoldMembers, houseSize) {  
     const houseHoldPTS = calculatePoints(houseHoldMembers);
@@ -54,12 +54,31 @@ function start(houseHoldMembers, houseSize) {
     CFPDATA.push([houseHoldMembers, houseSize, houseHoldPTS, houseSizePTS, totalPoints])
 }
 
-function displayOutput(){
-    
+function displayOutput() {
+    for (Array of CFPDATA) {
+        console.log(Array)
+        const output = document.getElementById("output");
+        const newP = document.createElement("p");
+        newP.textContent = `Total amount of people in your home: ${Array[0]}, Size of your home: ${Array[1]}, carbon footprint based on members in your home: ${Array[2]}, carbon footprint based on homesize: ${Array[3]}, total carbon footprint: ${Array[4]}`;
+        output.appendChild(newP)
+    }
 }
-start(5, "small");
+start(5, "large");
 start(4, "large");
-start(3, "medium");
+start(3, "large");
+start(2, "large");
+start(1, "large");
+start(1, "medium");
+start(4, "medium");
+start(5, "medium");
+start(1, "small");
+start(2, "small");
+start(3, "small");
+start(4, "small");
+start(2, "apartment");
+start(3, "apartment");
+start(4, "apartment");
+start(5, "apartment");
 
 displayOutput();
 
