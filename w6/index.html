@@ -20,8 +20,6 @@
     input :out-of-range {
         background-color: lightcoral;
     }
-    
-
     </style>
   </head>
   <body>
@@ -30,11 +28,11 @@
         <legend>Calculating Your Carbon Footprint Points</legend>
         <div> 
             <label for="">First Name:</label>
-            <input type="text" name="firstname" required />
+            <input type="text" name="firstname" maxlength="20" required />
         </div>
         <div> 
             <label for="">Last Name</label>
-            <input type="text" name="lastname" required/> 
+            <input type="text" name="lastname" maxlength="20" required/> 
         </div>
         <!-- Household Members -->
         <div>
@@ -45,7 +43,6 @@
         <!-- House Size -->
         <div>
             <label>Consider the size of your home</label>
-            <!-- <input type="text" name="houses" required /> -->
             <select name="houses"> 
                 <option value=""> Please enter the size of home </option>
                 <option value="apt"> Apartment </option>
