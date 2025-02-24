@@ -114,27 +114,29 @@
 
 // displayOutput();
 const moviesArr = [
-  { title: "Inception", year: "2010", rating: "8.8/10" },
-  {
-    title: "The Dark Knight",
-    year: "2008",
-    rating: "9.0/10",
-  },
-  {
-    title: "Interstellar",
-    year: "2014",
-    rating: "8.6/10",
-  },
-  { title: "The Room", year: "2003", rating: "3.7/10" },
+  { title: "Inception", year: "2010", rating: "8.8/10", watched: 3 },
+  { title: "The Dark Knight", year: "2008", rating: "9.0/10", watched: 6 },
+  { title: "Interstellar", year: "2014", rating: "8.6/10", watched: 2 },
+  { title: "The Room", year: "2003", rating: "3.7/10", watched: 1 },
 ];
+
+function recommendMovie(movie) {
+  const rating = parseFloat(movie.rating); // Convert rating to a number
+
+  return (rating > 6 && movie.watched < 5) || rating < 7;
+}
 
 function displayOutputMovies() {
   const output = document.getElementById("output");
-  for (const obj of moviesArr) {
-    console.log(obj)
-    const newH2 = document.createElement("H2");
-    newH2.textContent = `The movie "${obj.title}" was released in ${obj.year} and has a rating of ${obj.rating}`;
-    output.appendChild(newH2);
-  }
+  output.innerHTML = ""; 
+
+  moviesArr.forEach((movie) => {
+    if (recommendMovie(movie)) {
+      const newH2 = document.createElement("H2");
+      newH2.textContent = `🎬 "${movie.title}" (Released: ${movie.year}) | ⭐ ${movie.rating} | Watched: ${movie.watched} times`;
+      output.appendChild(newH2);
+    }
+  });
 }
+
 displayOutputMovies();
