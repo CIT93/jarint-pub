@@ -1,6 +1,6 @@
+import { renderTBL} from "./render.js";
 const FORM = document.getElementById("form");
 const cfpData = [];
-const OUTPUT = document.getElementById("output");
 
 
 function determineHouseSizePts(size) {
@@ -40,20 +40,6 @@ function start(firstName, lastName, houseMembers, houseSize) {
   });
 }
 
-function displayOutput() {
-  cfpData.forEach(obj => {
-    const newP = document.createElement("p");
-    const newH2 = document.createElement("h2");
-    newH2.textContent = `Carbon Footprint for ${obj.firstName} ${obj.lastName} is ${obj.cfpTotal}`;
-    const newH3 = document.createElement("h3");
-    newH3.textContent = `Based on Number in Household and Size of Home.`;
-    newP.textContent = `Members in the home: ${obj.houseM} (score: ${obj.houseMPTS})`;
-    newP.textContent += ` and a ${obj.houseS} home (score: ${obj.houseSPTS})`;
-    OUTPUT.appendChild(newH2);
-    OUTPUT.appendChild(newH3);
-    OUTPUT.appendChild(newP);
-  });
-}
 
 FORM.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -64,7 +50,9 @@ FORM.addEventListener('submit', function(e) {
     const houseSize = FORM.houses.value.toLowerCase();  // Ensure lowercase for comparison
     start(firstName, lastName, houseMembers, houseSize);
     OUTPUT.innerHTML = "";
-    displayOutput();
+   // displayOutput();
+    renderTBL(cfpData);
     FORM.reset();
 });
 
+// What actually model does to a webpage why we need it?
