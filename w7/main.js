@@ -1,58 +1,40 @@
-import { renderTBL} from "./render.js";
+import { renderTbl } from "./render.js";
+import { cfpData, determineHouseHoldPts, determineHouseSizePts } from "./cfp.js";
+
+
+const myHeading = document.querySelector("h1");
+myHeading.textContent = "coding week 7";
 const FORM = document.getElementById("form");
-const cfpData = [];
+const OUTPUT = document.getElementById("output");
 
 
-function determineHouseSizePts(size) {
-  let houseSizePoints = 0;
-  if (size === "large") houseSizePoints = 10;
-  else if (size === "medium") houseSizePoints = 7;
-  else if (size === "small") houseSizePoints = 4;
-  else if (size === "apt") houseSizePoints = 2;
-  return houseSizePoints;
+function start(houseMembers, houseSize) {
+    const houseHoldPTS = determineHouseHoldPts(houseMembers);
+    const houseSizePts = determineHouseSizePts(houseSize);
+    const total = houseHoldPTS + houseSizePts;
+    console.log(total);
+    cfpData.push({
+        houseM: houseMembers,
+        houseS: houseSize,
+        houseMPTS: houseHoldPTS,
+        houseSPTS: houseSizePts,
+        cfpTotal: total,
+    })
 }
 
-function determineHouseHoldPts(numberInHousehold) {
-  let houseHoldPoints = 0;
-  if (numberInHousehold === 1) houseHoldPoints = 14;
-  else if (numberInHousehold === 2) houseHoldPoints = 12;
-  else if (numberInHousehold === 3) houseHoldPoints = 10;
-  else if (numberInHousehold === 4) houseHoldPoints = 8;
-  else if (numberInHousehold === 5) houseHoldPoints = 6;
-  else if (numberInHousehold === 6) houseHoldPoints = 4;
-  else if (numberInHousehold > 6) houseHoldPoints = 2;
-  return houseHoldPoints;
-}
+start();
 
-function start(firstName, lastName, houseMembers, houseSize) {
-  const houseHoldPTS = determineHouseHoldPts(houseMembers);
-  const houseSizePts = determineHouseSizePts(houseSize);
-  const total = houseHoldPTS + houseSizePts;
-  
-  cfpData.push({
-    firstName,
-    lastName,
-    houseM: houseMembers,
-    houseS: houseSize,
-    houseMPTS: houseHoldPTS,
-    houseSPTS: houseSizePts,
-    cfpTotal: total,
-  });
-}
+// we got the error for the td because we created the td element inside the loop instead of outside the loop, it was blocked specifically to that loop and not the whole thing but if you move it outside the loop i bet it would work
 
-
-FORM.addEventListener('submit', function(e) {
+FORM.addEventListener("submit", function(e){
     e.preventDefault();
-
     const firstName = FORM.firstname.value;
     const lastName = FORM.lastname.value;
-    const houseMembers = parseInt(FORM.housem.value);  // Convert to number
-    const houseSize = FORM.houses.value.toLowerCase();  // Ensure lowercase for comparison
-    start(firstName, lastName, houseMembers, houseSize);
+    const houseSize = FORM.housesize.value;
+    const houseMembers = parseInt(FORM.housemembers.value);
+    console.log(houseMembers, houseSize);
+    start(houseMembers, houseSize);
     OUTPUT.innerHTML = "";
-   // displayOutput();
-    renderTBL(cfpData);
+    renderTbl();
     FORM.reset();
 });
-
-// What actually model does to a webpage why we need it?
