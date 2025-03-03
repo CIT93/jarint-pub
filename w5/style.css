@@ -1,0 +1,23 @@
+html {
+    font-size: 22px;
+  }
+
+  body {
+    background-color: #333;
+    color: rgb(190, 104, 104);
+  }
+
+  input:in-range {
+    background-color: rgb(102, 134, 240);
+  }
+
+  input:out-of-range {
+    background-color: rgb(157, 80, 80);
+  }
+  table, th, td {
+    border: 1px solid;
+    padding: 5px
+  }
+  tbody tr:nth-child(odd){
+    background-color: rgb(38, 211, 234);
+  }
