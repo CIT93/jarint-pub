@@ -42,3 +42,13 @@ This project is designed to calculate and display a user's Carbon Footprint Poin
   - Calls itself after deletion to refresh the table.
 
 
+
+## **Feedback on the Video**
+- **Was it helpful?**
+  - The video provided useful insights into debugging with Chrome DevTools.
+  - Seeing the execution flow in real-time helped reinforce understanding of function calls and data updates.
+- **Suggestions for improvement:**
+  - More examples of common debugging scenarios would be helpful.
+  - It would be beneficial to see how to debug and fix an issue rather than just stepping through working code.
+  - The explanation was clear, but at some points, the discussion of variable naming could have been structured better to avoid confusion.
+  - Highlighting the connection between the modules earlier would have made the flow easier to follow.
