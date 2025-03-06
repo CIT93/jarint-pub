@@ -42,7 +42,6 @@ This project is designed to calculate and display a user's Carbon Footprint Poin
   - Calls itself after deletion to refresh the table.
 
 
-
 ## **Feedback on the Video**
 - **Was it helpful?**
   - The video provided useful insights into debugging with Chrome DevTools.
@@ -52,3 +51,28 @@ This project is designed to calculate and display a user's Carbon Footprint Poin
   - It would be beneficial to see how to debug and fix an issue rather than just stepping through working code.
   - The explanation was clear, but at some points, the discussion of variable naming could have been structured better to avoid confusion.
   - Highlighting the connection between the modules earlier would have made the flow easier to follow.
+
+# Coding Challenge: Conditionally Iterate Over an Object
+
+In this challenge, I used `Object.entries()` to convert an object into key-value pairs and iterated over them with a `for...of` loop. I applied conditions to only render specific values (e.g., `firstName` and `cfpTotal`) in a dynamically created table. The solution allows for easy customization to include or exclude other properties as needed.
+
+## Editing Data in the Table
+
+To edit data in the table, follow these steps:
+
+1. **Click on the "Edit" Button**:
+   - Each row in the table has an "Edit" button in the last column.
+   - When you click the "Edit" button, the current values of that row will be replaced by editable input fields, allowing you to modify them.
+
+2. **Modify the Values**:
+   - Once the "Edit" button is clicked, the text content of the row is replaced by input fields.
+   - Edit the values as needed in the input fields.
+
+3. **Save Changes**:
+   - After modifying the values, the "Edit" button will change to "Save".
+   - Click the "Save" button to save the changes.
+
+4. **Data Update**:
+   - The modified data will be saved, and the table will be updated with the new values.
+   - The table will automatically re-render to reflect the updated data.
+   

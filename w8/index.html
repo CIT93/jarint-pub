@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" defer src="main.js"></script>
+    <title>Week 7 - Carbon footprint -pub</title>
+   <link rel="stylesheet" href="/w8/style.css">
+  </head>
+  <body>
+    <form id="form">
+      <fieldset>
+        <legend>Calculating Your Carbon Footprint Points</legend>
+        <div> 
+            <label for="">First Name:</label>
+            <input type="text" name="firstname" maxlength="20" required />
+        </div>
+        <div> 
+            <label for="">Last Name</label>
+            <input type="text" name="lastname" maxlength="20" required/> 
+        </div>
+        <!-- Household Members -->
+        <div>
+            <label>How many people in your house?</label>
+            <input type="number" name="housem" min="1" max="6" required />
+        </div>
+
+        <!-- House Size -->
+        <div>
+            <label>Consider the size of your home</label>
+            <select name="houses"> 
+                <option value=""> Please enter the size of home </option>
+                <option value="apt"> Apartment </option>
+                <option value="large"> Large </option>
+                <option value="small"> small </option>
+                <option value="medium"> Medium </option>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
+    <div id="output"></div>
+    <div id="tab-data"></div>
+    <!-- <table>
+        <thead>
+       <tr>
+        <th>NAME</th>
+        <th>HouseHold</th>
+        <th>House Size</th>
+        <th>Carbon Foorprint</th>
+        <th>Action</th>
+       </tr> 
+    </thead>
+    <tbody>
+        <tr>
+            <td>Tisha</td>
+            <td>3</td>
+            <td>Large</td>
+            <td>20</td>
+            <td><button>Edit</button>
+            <button>Delete</button></td>
+        </tr>
+        <tr>
+            <td>Tisha</td>
+            <td>2</td>
+            <td>small</td>
+            <td>24</td>
+            <td><button>Edit</button>
+            <button>Delete</button></td>
+        </tr>
+    </tbody>
+    </table> -->
+  </body>
+</html>
