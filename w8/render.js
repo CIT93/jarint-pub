@@ -1,8 +1,8 @@
 const TBL = document.getElementById("tab-data");
+const FORM = document.getElementById("form");
 
-// Function to render table heading
 function renderTblHeading() {
-  const table = document.createElement("table"); // Create table
+  const table = document.createElement("table"); // Create table here first
   const thead = document.createElement("thead");
   const tr = document.createElement("tr");
   const headingTextArr = [
@@ -12,7 +12,7 @@ function renderTblHeading() {
     "HouseSize",
     "Footprint",
     "Action",
-  ]; // Table headers
+  ]; // Define the table headers
   headingTextArr.forEach(function (text) {
     const th = document.createElement("th");
     th.textContent = text;
@@ -32,80 +32,62 @@ function renderTblbtn(index, data) {
   td.appendChild(btnEdit);
   td.appendChild(btnDel);
 
-  // Event listener for "Del" button
+  // Event listener for the "Del" button
   btnDel.addEventListener('click', function () {
+    // Remove the corresponding data from the array
     data.splice(index, 1);
-    renderTBL(data); // Re-render the table after deletion
+
+    // Re-render the table after deletion
+    renderTBL(data);
   });
 
-  // Event listener for "Edit" button
-  btnEdit.addEventListener('click', function () {
-    const formFields = document.querySelectorAll("form input");
-    const objToEdit = data[index];
+  // Event listener for the "Edit" button
+  btnEdit.addEventListener('click', function(e){
+    const obj = data[index];  // Reference the correct object from the data array
 
-    formFields[0].value = objToEdit.firstname; 
-    formFields[1].value = objToEdit.lastname;  
-    formFields[2].value = objToEdit.household; 
-    formFields[3].value = objToEdit.housesize; 
-    formFields[4].value = objToEdit.footprint; 
+    // Populate the form with the current row's data
+    FORM[1].value = obj.firstName;
+    FORM[2].value = obj.lastName;
+    FORM[3].value = obj.household;
+    FORM[4].value = obj.houseSize;
+    FORM[5].value = obj.footprint;
 
-    document.getElementById("saveButton").dataset.index = index;
+    // Remove the object from the array (for editing purposes)
+    data.splice(index, 1);
+    
+    // Re-render the table after editing
+    renderTBL(data);
   });
-
   return td;
 }
 
-// Function to render table body
 function renderTblBody(data) {
   const tbody = document.createElement("tbody");
-  if (data.length > 0) {
-    data.forEach(function (obj, index) {
-      const tr = document.createElement("tr");
-      for (const [key, value] of Object.entries(obj)) {
-        if (key !== "lastname" && key !== "houseMPTS" && key !== "houseSPTS") {
-          const td = document.createElement("td");
-          td.textContent = value;
-          tr.appendChild(td);
-        }
+  data.forEach(function (obj, index) {
+    const tr = document.createElement("tr");
+    for (const [key, value] of Object.entries(obj)) {
+      if (key !== "lastname" && key !== "houseMPTS" && key !== "houseSPTS") {
+        const td = document.createElement("td");
+        td.textContent = value;
+        tr.appendChild(td);
       }
-      const td = renderTblbtn(index, data); // Get action buttons for each row
-      tr.appendChild(td);
-      tbody.appendChild(tr);
-    });
-  }
+    }
+    const td = renderTblbtn(index, data); // Get the action buttons
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+  });
   return tbody;
 }
 
-// Main function to render the entire table
 function renderTBL(data) {
-  TBL.innerHTML = ''; // Clear the table before re-rendering
+  TBL.innerHTML = ''; // Clear the existing table before rendering the new one
 
-  if (data.length > 0) {
-    const table = renderTblHeading();  // Render heading
-    const tbody = renderTblBody(data); // Render body with data
-    table.appendChild(tbody); // Append body to table
-    TBL.appendChild(table);  // Append table to DOM
+  if (data.length !== 0) {
+    const table = renderTblHeading();
+    const tbody = renderTblBody(data);
+    table.appendChild(tbody); // Append tbody to the table
+    TBL.appendChild(table);  // Append the table to the DOM
   }
 }
-
-// Form submission handler (for adding or updating data)
-document.getElementById("saveButton").addEventListener("click", function () {
-  const formFields = document.querySelectorAll("form input");
-  const index = this.dataset.index; // Get the index of the object being edited
-  const updatedData = {
-    firstname: formFields[0].value,
-    lastname: formFields[1].value,
-    household: formFields[2].value,
-    housesize: formFields[3].value,
-    footprint: formFields[4].value,
-  };
-
-  if (index !== undefined) {
-    data[index] = updatedData;
-  } else {
-    data.push(updatedData);
-  }
-
-  renderTBL(data);
 
 export { renderTBL };

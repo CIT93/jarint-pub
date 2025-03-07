@@ -31,6 +31,6 @@ FORM.addEventListener('submit', function(e) {
     const houseSize = FORM.houses.value.toLowerCase();  // Ensure lowercase for comparison
     start(firstName, lastName, houseMembers, houseSize);
     OUTPUT.innerHTML = "";
-    renderTBL(cfpData);
+    renderTBL(cfpData,);
     FORM.reset();
 })
