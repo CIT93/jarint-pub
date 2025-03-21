@@ -3,8 +3,8 @@ import { determineHouseHoldPts, determineHouseSizePts } from "./cfp.js";
 import { FORM, FNAME, LNAME, SUBMIT } from "./global.js";
 import { saveLS, cfpData } from "./storage.js";
 
-// Named function for start
-const start = function(first, last, houseHoldMembers, houseSize) {
+// Arrow function for start with default parameters
+const start = (first = "Unknown", last = "Unknown", houseHoldMembers = 1, houseSize = "small") => {
   const houseHoldPTS = determineHouseHoldPts(houseHoldMembers);
   const houseSizePts = determineHouseSizePts(houseSize);
   const total = houseHoldPTS + houseSizePts;
@@ -15,35 +15,36 @@ const start = function(first, last, houseHoldMembers, houseSize) {
     houseS: houseSize,
     houseMPTS: houseHoldPTS,
     houseSPTS: houseSizePts,
-    cfpTotal: total
+    cfpTotal: total,
   });
-}
+};
 
 renderTbl(cfpData);
 
-// Named function for field validation
-const validateField = function(event) {
+// Arrow function for field validation
+const validateField = (event) => {
   const field = event.target.value;
   const fieldId = event.target.id;
   const fieldError = document.getElementById(`${fieldId}Error`);
 
-  if (field === '') {
+  if (field === "") {
     fieldError.textContent = `${fieldId} is required`;
-    event.target.classList.add('invalid');
+    event.target.classList.add("invalid");
   } else {
-    fieldError.textContent = '';
-    event.target.classList.remove('invalid');
+    fieldError.textContent = "";
+    event.target.classList.remove("invalid");
   }
-}
+};
 
-FNAME.addEventListener('blur', validateField);
-LNAME.addEventListener('blur', validateField);
+FNAME.addEventListener("blur", validateField);
+LNAME.addEventListener("blur", validateField);
 
-const handleSubmit = function(e) {
+// Arrow function for form submission
+const handleSubmit = (e) => {
   e.preventDefault();
 
-  if (FNAME.value !== '' && LNAME.value !== '') {
-    SUBMIT.textContent = '';
+  if (FNAME.value !== "" && LNAME.value !== "") {
+    SUBMIT.textContent = "";
     start(FNAME.value, LNAME.value, parseInt(FORM.housem.value), FORM.houses.value);
     saveLS(cfpData);
     renderTbl(cfpData);
@@ -53,19 +54,18 @@ const handleSubmit = function(e) {
   }
 };
 
-FORM.addEventListener('submit', handleSubmit);
+FORM.addEventListener("submit", handleSubmit);
 
-const add2 = function(...a){
-  return 2+ a;
-}
+// Refactored add2 function using the rest operator
+const add2 = (...a) => {
+  return a.reduce((sum, num) => sum + num, 2); // Summing all arguments and adding 2
+};
 
-const result = add2(1,2,3,4);
+const result = add2(1, 2, 3, 4); // Example result
 
-// spread arguement
-
-//IIFE
+// Immediately Invoked Function Expression (IIFE)
 const a = 3;
-( function(add2){
+(function (add2) {
   console.log("Inside IIFE");
   console.log(a);
 })(a);

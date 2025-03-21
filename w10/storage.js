@@ -1,16 +1,13 @@
-// Named function to retrieve data from localStorage
-const getLS = function() {
+// Arrow function to retrieve data from localStorage
+const getLS = () => {
     const retrievedArr = localStorage.getItem("cfp");
-    if (retrievedArr !== null) {
-        return JSON.parse(retrievedArr);
-    } else {
-        return [];
-    }
+    return retrievedArr !== null ? JSON.parse(retrievedArr) : [];
 };
 
 const cfpData = getLS();
 
-const saveLS = function(cfpData) {
+// Arrow function to save data to localStorage
+const saveLS = (cfpData) => {
     const serializedArr = JSON.stringify(cfpData);
     localStorage.setItem("cfp", serializedArr);
 };

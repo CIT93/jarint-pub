@@ -1,8 +1,8 @@
 import { FORM, TBL } from "./global.js";
 import { saveLS } from "./storage.js";
 
-// Named function to render table heading
-const renderTblHeading = function() {
+// Arrow function for rendering table heading
+const renderTblHeading = () => {
   const table = document.createElement("table");
   const thead = document.createElement("thead");
   const tr = document.createElement("tr");
@@ -14,7 +14,7 @@ const renderTblHeading = function() {
     "Action",
   ];
 
-  headingTextArr.forEach(function (text) {
+  headingTextArr.forEach((text) => {
     const th = document.createElement("th");
     th.textContent = text;
     tr.appendChild(th);
@@ -25,14 +25,15 @@ const renderTblHeading = function() {
   return table;
 };
 
-// Named function for updating data
-const onUpdate = function(index, data) {
+// Arrow function for updating data
+const onUpdate = (index, data) => {
   data.splice(index, 1);
   saveLS(data);
   renderTbl(data);
 };
 
-const renderTblBtn = function(obj, index, data) {
+// Arrow function for rendering buttons (Edit/Delete)
+const renderTblBtn = (obj, index, data) => {
   const td = document.createElement("td");
   const btnEdit = document.createElement("button");
   const btnDel = document.createElement("button");
@@ -41,11 +42,9 @@ const renderTblBtn = function(obj, index, data) {
   td.appendChild(btnEdit);
   td.appendChild(btnDel);
 
-  btnDel.addEventListener("click", function (e) {
-    onUpdate(index, data);
-  });
-
-  btnEdit.addEventListener("click", function (e) {
+  btnDel.addEventListener("click", () => onUpdate(index, data));
+  
+  btnEdit.addEventListener("click", () => {
     FORM[1].value = obj.firstName;
     FORM[2].value = obj.lastName;
     FORM[3].value = obj.houseM;
@@ -56,10 +55,10 @@ const renderTblBtn = function(obj, index, data) {
   return td;
 };
 
-// Named function to render table body
-const renderTblBody = function(data) {
+// Arrow function for rendering table body
+const renderTblBody = (data) => {
   const tbody = document.createElement("tbody");
-  data.forEach(function (obj, index) {
+  data.forEach((obj, index) => {
     const tr = document.createElement("tr");
     for (const [key, value] of Object.entries(obj)) {
       if (key !== "lastName" && key !== "houseMPTS" && key !== "houseSPTS") {
@@ -76,8 +75,8 @@ const renderTblBody = function(data) {
   return tbody;
 };
 
-// Named function to render the table
-const renderTbl = function(data) {
+// Arrow function to render the table
+const renderTbl = (data) => {
   TBL.innerHTML = "";
   if (data.length !== 0) {
     const table = renderTblHeading();
