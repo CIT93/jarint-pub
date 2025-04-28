@@ -1,45 +1,31 @@
-const OUTPUT = document.getElementById("output");
+const output = document.getElementById("output");
+const url = "https://picsum.photos/v2/list";
 
-const fetchData = async (url) => {
-    try {
-        const response = await fetch(url);
+async function getData() {
+  try {
+    const response = await fetch(url);
+    
+    if (response.ok) {
+      const data = await response.json();
 
-        // Handle server errors
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        // Handle data errors
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        // Display error messages
-        OUTPUT.innerHTML = `<h3 class="error">Error: ${error.message}</h3>`;
-    }
-};
-
-const renderData = (data) => {
-    OUTPUT.innerHTML = ""; // Clear previous data
-
-    if (data && data.length > 0) {
-        data.forEach(item => {
-            const div = document.createElement("div");
-            div.classList.add("data-item");
-            div.innerHTML = `
-                <h4>${item.title}</h4>
-                <p>${item.body}</p>
-            `;
-            OUTPUT.appendChild(div);
-        });
+      // Limit to first 20 photos to avoid overloading the browser
+      data.slice(0, 20).forEach(photo => {
+        const img = document.createElement("img");
+        img.src = `https://picsum.photos/id/${photo.id}/400/400`;
+        img.alt = photo.author;
+        img.style.margin = "10px";
+        output.appendChild(img);
+      });
     } else {
-        OUTPUT.innerHTML = "<h3>No data found!</h3>";
+      const errorP = document.createElement("p");
+      errorP.textContent = `Server Error: ${response.status}`;
+      output.appendChild(errorP);
     }
-};
+  } catch (error) {
+    const newP = document.createElement("p");
+    newP.textContent = `Fetch Error: ${error}`;
+    output.appendChild(newP);
+  }
+}
 
-// Fetching posts data
-const endpoint = "https://jsonplaceholder.typicode.com/posts";
-fetchData(endpoint).then(data => renderData(data));
-
-// Simulate a call to a non-existent endpoint for error handling
-const invalidEndpoint = "https://jsonplaceholder.typicode.com/invalidendpoint";
-fetchData(invalidEndpoint);
+getData();
