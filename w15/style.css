@@ -1,0 +1,43 @@
+html {
+    font-size: 22px;
+}
+
+body {
+    background-color: rgb(141, 97, 97);
+    color: whitesmoke;
+}
+
+/* Styling for input fields within range */
+input:in-range {
+    background-color: lightgreen;
+}
+
+/* Styling for input fields out of range */
+input:out-of-range {
+    background-color: lightcoral;
+}
+
+/* Table styling */
+table, th, td {
+    border: 1px solid;
+    padding: 5px;
+}
+
+/* Alternate row coloring */
+tbody tr:nth-child(odd) {
+    background-color: rgb(87, 168, 66);
+}
+
+/* Error messages and input validation */
+#error {
+    color: red;
+    text-transform: uppercase;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+.error {
+    color: red;
+}
