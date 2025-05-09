@@ -1,28 +1,48 @@
 import { FORM, TBL } from "./global.js";
 import { saveLS } from "./storage.js";
 
+const calculateAvg = (data) => {
+    const reduceTotal = data.reduce((sum, ea)=> sum + ea.total, 0);
+    const tableRef = document.getElementById("table-id");
+    let newTR = tableRef.insertRow(-1);
+    let newTD = newTR.insertCell(0);
+    let newTD_1 = newTR.insertCell(0);
+    let newTD_2 = newTR.insertCell(0);
+    // let newTD_3 = newTR.insertCell(0);
+    // let newTD_4 = newTR.insertCell(0);
+    let newLabl = document.createTextNode(`Average Foodprint`);
+    let newText = document.createTextNode(`${Math.floor(reduceTotal/data.length)}`)
+    newTD_1.appendChild(newLabl);
+    newTD.appendChild(newText);
+} 
 
 const renderTblHeading = () => {
   const table = document.createElement("table");
+  table.setAttribute("id", "table-id"); // ensure ID for addRow to find it
   const thead = document.createElement("thead");
   const tr = document.createElement("tr");
-  const headingTextArr = ["First", "Last", "Footprint Total", "Actions"];
 
+  const headingTextArr = [
+    "First",
+    "Last",
+    "Footprint Totals",
+    "Actions",
+  ];
   headingTextArr.forEach((text) => {
     const th = document.createElement("th");
     th.textContent = text;
     tr.appendChild(th);
   });
-
   thead.appendChild(tr);
   table.appendChild(thead);
+
   return table;
 };
 
 const onUpdate = (index, data) => {
   data.splice(index, 1);
   saveLS(data);
-  renderTbl(data);
+  renderTbl(data); // re-render after update
 };
 
 const renderTblBtn = (obj, index, data) => {
@@ -31,8 +51,7 @@ const renderTblBtn = (obj, index, data) => {
   const btnDel = document.createElement("button");
 
   btnEdit.textContent = "Edit";
-  btnDel.textContent = "Delete";
-
+  btnDel.textContent = "Del";
   td.appendChild(btnEdit);
   td.appendChild(btnDel);
 
@@ -41,26 +60,26 @@ const renderTblBtn = (obj, index, data) => {
   });
 
   btnEdit.addEventListener("click", () => {
-    FORM[1].value = obj.firstName;
-    FORM[2].value = obj.lastName;
-    FORM[3].value = obj.houseHoldMembers;
-    FORM[4].value = obj.houseSize;
-    FORM[5].value = obj.foodChoice;
-    FORM[6].value = obj.foodSource;
-
+    FORM.firstName.value = obj.first;
+    FORM.lastName.value = obj.last;
+    FORM.housem.value = obj.houseMembers;
+    FORM.houses.value = obj.houseSize;
+    FORM.food.value = obj.foodChoice;
+    FORM.foodSource.value = obj.foodSource;
+    FORM.water.value = obj.waterConsum.toString();
+    FORM.dishAndWasher.checked = obj.waterConsumPoints !== 0 && obj.waterConsumPoints % 2 === 0;
+    FORM.purchase.value = obj.itemPurchasePoints.toString();
     onUpdate(index, data);
   });
 
   return td;
 };
 
-const renderBody = (data) => {
+const renderTblBody = (data) => {
   const tbody = document.createElement("tbody");
-
   data.forEach((obj, index) => {
     const tr = document.createElement("tr");
-    const keys = ["firstName", "lastName", "total"]; // corrected keys
-
+    const keys = ["first", "last", "total"];
     keys.forEach((key) => {
       const td = document.createElement("td");
       td.textContent = obj[key];
@@ -71,43 +90,18 @@ const renderBody = (data) => {
     tr.appendChild(td);
     tbody.appendChild(tr);
   });
-
   return tbody;
-};
-
-const getAvgScore = (data) => {
-  if (data.length === 0) return 0;
-  const total = data
-    .map((entry) => entry.total)
-    .reduce((sum, score) => sum + score, 0);
-  return (total / data.length).toFixed(2);
 };
 
 const renderTbl = (data) => {
   TBL.innerHTML = "";
-
   if (data.length !== 0) {
     const table = renderTblHeading();
-    const tbody = renderBody(data);
+    const tbody = renderTblBody(data);
     table.appendChild(tbody);
-
-    // Add average row
-    const avgScore = getAvgScore(data);
-    const avgRow = table.insertRow(-1);
-
-    // Insert empty cells to align
-    for (let i = 0; i < 3; i++) {
-      avgRow.insertCell(i).textContent = "";
-    }
-
-    const avgLabelCell = avgRow.insertCell(3);
-    avgLabelCell.textContent = "Average Footprint";
-
-    const avgValueCell = avgRow.insertCell(4);
-    avgValueCell.textContent = avgScore;
-
     TBL.appendChild(table);
-  }
+    calculateAvg(data);
+  } 
 };
 
 export { renderTbl };
