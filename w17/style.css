@@ -1,0 +1,107 @@
+/* Global font and smoothing */
+html {
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(to right, #8360c3, #2ebf91);
+    color: #f9f9f9;
+    margin: 0;
+    padding: 2rem;
+}
+
+/* Input styles */
+input,
+select,
+textarea,
+button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0.3rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Valid/Invalid input visual feedback */
+input:in-range {
+    background-color: #d0f5d0;
+}
+
+input:out-of-range {
+    background-color: #f8d0d0;
+}
+
+/* Buttons */
+button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #4caf50;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #e0f7fa;
+    transition: background-color 0.2s;
+}
+
+/* Error styles */
+#error,
+.error {
+    color: #ff4d4f;
+    font-weight: bold;
+    margin-top: 0.2rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* Invalid field border */
+.invalid {
+    border: 2px solid #ff4d4f;
+    background-color: #ffe6e6;
+}
