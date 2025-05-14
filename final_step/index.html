@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decision Making App</title>
+    <script type="module" src="main.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Decision Making App</h1>
+
+    <!-- Error messages container (optional for custom messages) -->
+    <div id="errorMessages" style="color: red; margin-bottom: 10px;"></div>
+
+    <form id="decisionForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" />
+      <div id="firstNameError" style="color: red;"></div> <!-- Error message for firstName -->
+
+      <label for="householdSize">Household Size:</label>
+      <input type="number" id="householdSize" min="1" />
+      <div id="householdSizeError" style="color: red;"></div> <!-- Error message for householdSize -->
+
+      <label>
+        <input type="checkbox" id="isEcoFriendly" /> I follow eco-friendly habits
+      </label>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="output"></div>
+  </body>
+</html>
